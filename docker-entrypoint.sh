@@ -27,8 +27,7 @@ cat > "$CONFIG_FILE" << 'EOFCONFIG'
       "100.64.0.16", "100.64.0.17", "100.64.0.18", "100.64.0.19", "100.64.0.20"
     ],
     "controlUi": {
-      "enabled": true,
-      "dangerouslyDisableDeviceAuth": true
+      "enabled": true
     }
   },
   "agents": {
@@ -36,7 +35,13 @@ cat > "$CONFIG_FILE" << 'EOFCONFIG'
       "model": {
         "primary": "google/gemini-2.0-flash"
       }
-    }
+    },
+    "list": [
+      { "id": "main", "default": true, "name": "Main" }
+    ]
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
   },
   "mediaUnderstanding": {
     "audio": {
