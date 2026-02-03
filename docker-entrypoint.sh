@@ -28,7 +28,7 @@ cat > "$CONFIG_FILE" << 'EOFCONFIG'
     ],
     "controlUi": {
       "enabled": true,
-      "pairing": false
+      "dangerouslyDisableDeviceAuth": true
     }
   }
 }
