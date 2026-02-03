@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       jq \
       ripgrep \
       ffmpeg \
+      tmux \
     && rm -rf /var/lib/apt/lists/*
 
 # GitHub CLI (gh)
@@ -34,6 +35,13 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
     apt-get update && \
     apt-get install -y --no-install-recommends gh && \
     rm -rf /var/lib/apt/lists/*
+
+# CLI tools for bundled skills
+RUN npm install -g \
+      @steipete/bird \
+      clawhub \
+      mcporter \
+      @steipete/oracle
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 COPY ui/package.json ./ui/package.json
 COPY patches ./patches
