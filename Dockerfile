@@ -50,17 +50,6 @@ ENV PATH="/root/.local/bin:$PATH"
 # Install Python-based CLI tools via uv
 RUN uv tool install nano-pdf
 
-# Go runtime + tools (blogwatcher, songsee, gifgrep)
-RUN apt-get update && apt-get install -y --no-install-recommends golang-go && \
-    rm -rf /var/lib/apt/lists/*
-ENV GOPATH="/root/go"
-ENV PATH="${GOPATH}/bin:${PATH}"
-
-# Go-based CLI tools
-RUN go install github.com/steipete/blogwatcher@latest && \
-    go install github.com/steipete/gifgrep/cmd/gifgrep@latest && \
-    go install github.com/steipete/songsee/cmd/songsee@latest
-
 # Summarize CLI (YouTube/podcast transcripts)
 RUN curl -fsSL -o /usr/local/bin/summarize \
       https://github.com/steipete/summarize/releases/latest/download/summarize_linux_amd64 && \
