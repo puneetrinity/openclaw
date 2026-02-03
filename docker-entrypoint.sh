@@ -14,11 +14,18 @@ CONFIG_FILE="$CONFIG_DIR/openclaw.json"
 mkdir -p "$CONFIG_DIR" 2>/dev/null || true
 
 # Always recreate config to ensure trustedProxies is set (volume may have old config)
+# Note: trustedProxies requires exact IPs (no CIDR support)
+# Railway uses 100.64.0.x range for internal proxies
 cat > "$CONFIG_FILE" << 'EOFCONFIG'
 {
   "gateway": {
     "mode": "local",
-    "trustedProxies": ["10.0.0.0/8", "100.64.0.0/10", "172.16.0.0/12", "192.168.0.0/16"]
+    "trustedProxies": [
+      "100.64.0.1", "100.64.0.2", "100.64.0.3", "100.64.0.4", "100.64.0.5",
+      "100.64.0.6", "100.64.0.7", "100.64.0.8", "100.64.0.9", "100.64.0.10",
+      "100.64.0.11", "100.64.0.12", "100.64.0.13", "100.64.0.14", "100.64.0.15",
+      "100.64.0.16", "100.64.0.17", "100.64.0.18", "100.64.0.19", "100.64.0.20"
+    ]
   }
 }
 EOFCONFIG
