@@ -42,12 +42,6 @@ cat > "$CONFIG_FILE" << 'EOFCONFIG'
   },
   "session": {
     "dmScope": "per-channel-peer"
-  },
-  "mediaUnderstanding": {
-    "audio": {
-      "enabled": true,
-      "models": [{ "provider": "groq" }]
-    }
   }
 }
 EOFCONFIG
