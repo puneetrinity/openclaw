@@ -36,12 +36,36 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
     apt-get install -y --no-install-recommends gh && \
     rm -rf /var/lib/apt/lists/*
 
-# CLI tools for bundled skills
+# CLI tools for bundled skills (npm)
 RUN npm install -g \
       @steipete/bird \
       clawhub \
       mcporter \
       @steipete/oracle
+
+# Python uv package manager (for nano-pdf, nano-banana-pro, local-places skills)
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+ENV PATH="/root/.local/bin:$PATH"
+
+# Install Python-based CLI tools via uv
+RUN uv tool install nano-pdf
+
+# Go runtime + tools (blogwatcher, songsee, gifgrep)
+RUN apt-get update && apt-get install -y --no-install-recommends golang-go && \
+    rm -rf /var/lib/apt/lists/*
+ENV GOPATH="/root/go"
+ENV PATH="${GOPATH}/bin:${PATH}"
+
+# Go-based CLI tools
+RUN go install github.com/steipete/blogwatcher@latest && \
+    go install github.com/steipete/gifgrep/cmd/gifgrep@latest && \
+    go install github.com/steipete/songsee/cmd/songsee@latest
+
+# Summarize CLI (YouTube/podcast transcripts)
+RUN curl -fsSL -o /usr/local/bin/summarize \
+      https://github.com/steipete/summarize/releases/latest/download/summarize_linux_amd64 && \
+    chmod +x /usr/local/bin/summarize
+
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 COPY ui/package.json ./ui/package.json
 COPY patches ./patches
