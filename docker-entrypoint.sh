@@ -27,7 +27,8 @@ cat > "$CONFIG_FILE" << 'EOFCONFIG'
       "100.64.0.16", "100.64.0.17", "100.64.0.18", "100.64.0.19", "100.64.0.20"
     ],
     "controlUi": {
-      "enabled": true
+      "enabled": true,
+      "dangerouslyDisableDeviceAuth": true
     }
   },
   "agents": {
