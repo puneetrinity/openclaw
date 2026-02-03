@@ -45,4 +45,4 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 # Start gateway server with default config.
 # Binds to 0.0.0.0 for container platforms, secured by OPENCLAW_GATEWAY_TOKEN
-CMD ["node", "dist/index.js", "gateway", "--allow-unconfigured", "--bind", "0.0.0.0", "--port", "8080"]
+CMD ["node", "dist/index.js", "gateway", "--allow-unconfigured", "--bind", "lan", "--port", "8080"]
