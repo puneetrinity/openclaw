@@ -51,8 +51,15 @@ ENV PATH="/root/.local/bin:$PATH"
 RUN uv tool install nano-pdf
 
 # Summarize CLI (YouTube/podcast transcripts)
-RUN curl -fsSL -o /usr/local/bin/summarize \
-      https://github.com/steipete/summarize/releases/latest/download/summarize_linux_amd64 && \
+RUN set -e; \
+    url="$(curl -fsSL https://api.github.com/repos/steipete/summarize/releases/latest | \
+      jq -r '.assets[] | select(.name | test("linux.*(amd64|x86_64)|x64"; "i")) | .browser_download_url' | \
+      head -n 1)"; \
+    if [ -z "$url" ] || [ "$url" = "null" ]; then \
+      echo "summarize: linux asset not found in latest release" >&2; \
+      exit 1; \
+    fi; \
+    curl -fsSL -o /usr/local/bin/summarize "$url"; \
     chmod +x /usr/local/bin/summarize
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
