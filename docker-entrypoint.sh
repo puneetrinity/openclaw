@@ -73,6 +73,7 @@ cat > "$CONFIG_FILE" << EOFCONFIG
   },
   "channels": {
     "telegram": {
+      "enabled": true,
       "dmPolicy": "allowlist",
       "allowFrom": [
         "${PUNEET_TELEGRAM_ID:-000000000}",
