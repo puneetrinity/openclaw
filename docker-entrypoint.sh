@@ -10,11 +10,11 @@ fi
 
 # Create config with trusted proxies for reverse proxy environments (Railway, etc.)
 CONFIG_DIR="${OPENCLAW_STATE_DIR:-/home/node/.openclaw}"
-CONFIG_FILE="$CONFIG_DIR/config.json"
+CONFIG_FILE="$CONFIG_DIR/openclaw.json"
 mkdir -p "$CONFIG_DIR" 2>/dev/null || true
 
-if [ ! -f "$CONFIG_FILE" ]; then
-  cat > "$CONFIG_FILE" << 'EOFCONFIG'
+# Always recreate config to ensure trustedProxies is set (volume may have old config)
+cat > "$CONFIG_FILE" << 'EOFCONFIG'
 {
   "gateway": {
     "mode": "local",
@@ -22,8 +22,7 @@ if [ ! -f "$CONFIG_FILE" ]; then
   }
 }
 EOFCONFIG
-  chown node:node "$CONFIG_FILE" 2>/dev/null || true
-fi
+chown node:node "$CONFIG_FILE" 2>/dev/null || true
 
 # Drop to node user and exec the command
 exec gosu node "$@"
