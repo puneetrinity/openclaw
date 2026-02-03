@@ -30,6 +30,19 @@ cat > "$CONFIG_FILE" << 'EOFCONFIG'
       "enabled": true,
       "dangerouslyDisableDeviceAuth": true
     }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "google/gemini-2.0-flash"
+      }
+    }
+  },
+  "mediaUnderstanding": {
+    "audio": {
+      "enabled": true,
+      "models": [{ "provider": "groq" }]
+    }
   }
 }
 EOFCONFIG
