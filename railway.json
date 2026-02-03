@@ -5,7 +5,6 @@
     "dockerfilePath": "Dockerfile"
   },
   "deploy": {
-    "startCommand": "mkdir -p /data/.openclaw /data/workspace 2>/dev/null || true; node dist/index.js gateway --allow-unconfigured --bind 0.0.0.0 --port 8080",
     "healthcheckPath": "/health",
     "healthcheckTimeout": 60,
     "restartPolicyType": "ON_FAILURE",
